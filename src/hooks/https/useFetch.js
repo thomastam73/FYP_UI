@@ -1,15 +1,17 @@
-import { useState, useEffect } from 'react';
-import { useSnackbar } from 'notistack';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import { useSnackbar } from "notistack";
+import axios from "axios";
 
 const useFetch = (initialUrl, skip = false) => {
-  const apiUrl = window.siteSetting.dev ? window.siteSetting.testApiUrl : window.siteSetting.apiUrl;
+  const apiUrl = window.siteSetting.dev
+    ? window.siteSetting.testApiUrl
+    : window.siteSetting.apiUrl;
   const [url] = useState(apiUrl + initialUrl);
   // const [params] = useState(initialParams);
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
@@ -17,7 +19,7 @@ const useFetch = (initialUrl, skip = false) => {
       if (skip) return;
       setIsLoading(true);
       try {
-        const token = localStorage.getItem('Token');
+        const token = localStorage.getItem("Token");
         const response = await axios.get(url, {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -31,8 +33,8 @@ const useFetch = (initialUrl, skip = false) => {
       } catch (err) {
         setHasError(true);
         setErrorMessage(err.message);
-        enqueueSnackbar('Get Data Error', {
-          variant: 'error',
+        enqueueSnackbar("Get Data Error", {
+          variant: "error",
         });
       } finally {
         setIsLoading(false);

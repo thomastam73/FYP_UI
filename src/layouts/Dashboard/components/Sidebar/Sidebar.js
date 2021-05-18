@@ -1,23 +1,28 @@
-import React from 'react';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/styles';
-import { Divider, Drawer } from '@material-ui/core';
-import { Info, Announcement, Assignment, LocationCity } from '@material-ui/icons';
-import { Profile, SidebarNav } from './components';
+import React from "react";
+import clsx from "clsx";
+import { makeStyles } from "@material-ui/styles";
+import { Divider, Drawer } from "@material-ui/core";
+import {
+  ImportContacts,
+  Public,
+  Headset,
+  LocationCity,
+} from "@material-ui/icons";
+import { Profile, SidebarNav } from "./components";
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
     width: 240,
-    [theme.breakpoints.up('lg')]: {
+    [theme.breakpoints.up("lg")]: {
       marginTop: 64,
-      height: 'calc(100% - 64px)',
+      height: "calc(100% - 64px)",
     },
   },
   root: {
     backgroundColor: theme.palette.white,
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
+    display: "flex",
+    flexDirection: "column",
+    height: "100%",
     padding: theme.spacing(2),
   },
   divider: {
@@ -35,28 +40,24 @@ const Sidebar = (props) => {
   // 99 = admin
   const pages = [
     {
-      title: 'Covid-19 Cases',
-      href: '/management/cases',
-      icon: <Announcement />,
-      permission: 99,
+      title: "Dictionary",
+      href: "/management/signLanguages",
+      icon: <ImportContacts />,
     },
     {
-      title: 'Social Distancing Rules',
-      href: '/management/rules',
-      icon: <Assignment />,
-      permission: 99,
+      title: "Culture",
+      href: "/management/cultures",
+      icon: <Public />,
     },
     {
-      title: 'High Risk Areas',
-      href: '/management/areas',
-      icon: <Info />,
-      permission: 99,
+      title: "Listening Aid",
+      href: "/management/listeningaids",
+      icon: <Headset />,
     },
     {
-      title: 'Testing Institutions',
-      href: '/management/institutions',
+      title: "Location",
+      href: "/management/locations",
       icon: <LocationCity />,
-      permission: 99,
     },
   ];
 

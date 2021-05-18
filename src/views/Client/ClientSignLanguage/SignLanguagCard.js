@@ -1,68 +1,60 @@
-import React from 'react';
-import dayjs from 'dayjs';
+import React from "react";
 import {
-  Grid,
+  Button,
   makeStyles,
-  CardHeader,
+  CardActionArea,
   Card,
   CardContent,
   Typography,
-  Divider,
-  Box,
-} from '@material-ui/core';
-
-dayjs.locale('zh-hk');
+  CardMedia,
+  CardActions,
+  Grid,
+} from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
-    width: '100%',
+    maxWidth: 345,
   },
-  mb3: {
-    marginBottom: '10px',
+  media: {
+    height: 300,
   },
+  CardContent: { backgroundColor: "#E5E5E5" },
+  CardActions: { backgroundColor: "#934A5F" },
 });
 
-function getHKDate(date) {
-  if (date === null) {
-    return '--';
-  }
-  return dayjs(date).format('YYYY-MM-DD');
-}
-
-const RuleCard = (props) => {
+const SignLanguagCard = (props) => {
   const classes = useStyles();
   const { information } = props;
-
-  return (
-    <Card className={classes.root}>
-      <CardHeader
-        titleTypographyProps={{ variant: 'body1' }}
-        style={{ backgroundColor: '#FF6F00', color: 'white' }}
-        title={`${information.buildingName}`}
-      />
-      <Divider />
-      <CardContent>
-        <Grid container spacing={2} className={classes.mb3}>
-          <Grid item xs={6}>
-            <Typography variant="caption">District</Typography>
-            <Typography variant="body2" component="div">
-              <Box fontWeight="fontWeightMedium" display="inline">
-                {information.district}
-              </Box>
-            </Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography variant="caption">Last Date</Typography>
-            <Typography variant="body2" component="div">
-              <Box fontWeight="fontWeightMedium" display="inline">
-                {getHKDate(information.lastDate)}
-              </Box>
-            </Typography>
-          </Grid>
-        </Grid>
-      </CardContent>
-    </Card>
-  );
+  const list = information.map((information) => {
+    const url = `/signlanguages/${information._id}`;
+    return (
+      <Grid key={information._id} item xs={12} md={4} sm={6}>
+        <Card className={classes.root}>
+          <CardActionArea href={url}>
+            <CardMedia
+              className={classes.media}
+              image={information.imgURL}
+              title="Contemplative Reptile"
+            />
+            <CardContent className={classes.CardContent}>
+              <Typography gutterBottom variant="h5" component="h2">
+                {information.name}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                {information.description}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+          <CardActions className={classes.CardActions}>
+            <Button size="small" color="primary" href={url}>
+              Learn More
+            </Button>
+          </CardActions>
+        </Card>
+      </Grid>
+    );
+  });
+  return list;
 };
 
-export default RuleCard;
+export default SignLanguagCard;

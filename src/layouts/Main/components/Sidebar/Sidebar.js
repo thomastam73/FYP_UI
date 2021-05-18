@@ -1,23 +1,29 @@
-import React from 'react';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/styles';
-import { Drawer } from '@material-ui/core';
-import { ImportContacts, Public, LocationCity, Apps, Headset } from '@material-ui/icons';
-import { SidebarNav } from './components';
+import React from "react";
+import clsx from "clsx";
+import { makeStyles } from "@material-ui/styles";
+import { Drawer } from "@material-ui/core";
+import {
+  ImportContacts,
+  Public,
+  LocationCity,
+  Apps,
+  Headset,
+} from "@material-ui/icons";
+import { SidebarNav } from "./components";
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
     width: 240,
-    [theme.breakpoints.up('lg')]: {
+    [theme.breakpoints.up("lg")]: {
       marginTop: 64,
-      height: 'calc(100% - 64px)',
+      height: "calc(100% - 64px)",
     },
   },
   root: {
-    backgroundColor: '#57648C',
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
+    backgroundColor: "#DDC9BC",
+    display: "flex",
+    flexDirection: "column",
+    height: "100%",
     padding: theme.spacing(2),
   },
   divider: {
@@ -34,28 +40,28 @@ const Sidebar = (props) => {
 
   const pages = [
     {
-      title: 'Sign Languagae Translation',
-      href: '/home',
+      title: "Translation",
+      href: "/home",
       icon: <Apps />,
     },
     {
-      title: 'Sign Language Dictionary',
-      href: '/dictionarys',
+      title: "Dictionary",
+      href: "/signLanguages",
       icon: <ImportContacts />,
     },
     {
-      title: 'Deaf and Dumb Culture',
-      href: '/cultures',
+      title: "Culture",
+      href: "/cultures",
       icon: <Public />,
     },
     {
-      title: 'Watch Listening Aid',
-      href: '/listeningaids',
+      title: "Listening Aid",
+      href: "/listeningaids",
       icon: <Headset />,
     },
     {
-      title: 'Deaf and Dumb Location',
-      href: '/locations',
+      title: "Location",
+      href: "/locations",
       icon: <LocationCity />,
     },
   ];

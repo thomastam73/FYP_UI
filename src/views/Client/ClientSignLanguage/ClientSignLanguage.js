@@ -1,65 +1,109 @@
-import React from 'react';
-import { CircularProgress, Grid, Typography } from '@material-ui/core';
-import dayjs from 'dayjs';
-// fontawesome
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import React from "react";
+import {
+  CircularProgress,
+  Grid,
+  Typography,
+  Divider,
+  makeStyles,
+  Button,
+} from "@material-ui/core";
+
 // hook
-import { useFetch } from '../../../hooks';
+import { useFetch } from "../../../hooks";
 // component
-import AreaCard from './SignLanguagCard';
+import SignLanguagCard from "./SignLanguagCard";
 
-dayjs.locale('zh-hk');
+const useStyles = makeStyles((theme) => ({
+  title: {
+    fontWeight: "bold",
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+  button: {
+    margin: theme.spacing(1),
+  },
+}));
 
-const getDiffDays = (date) => {
-  const today = dayjs(new Date());
-  const lastDate = dayjs(date);
-  return today.diff(lastDate, 'day');
-};
+const ClientSignLanguages = () => {
+  const classes = useStyles();
+  const { data, isLoading } = useFetch("/signLanguages/group");
+  const [district, setDistrict] = React.useState("US");
 
-const noCasesMessage = (count) => {
-  return count === 0 ? (
-    <Grid item xs={12}>
-      No any cases in 14 days.
-    </Grid>
-  ) : (
-    ''
+  const onClick = (district) => {
+    setDistrict(district);
+  };
+
+  const filterController = (
+    <div>
+      <Button
+        variant="outlined"
+        color="secondary"
+        className={classes.button}
+        onClick={() => onClick("US")}
+      >
+        US
+      </Button>
+      <Button
+        variant="outlined"
+        color="primary"
+        className={classes.button}
+        onClick={() => onClick("Hong Kong")}
+      >
+        Hong Kong
+      </Button>
+    </div>
   );
-};
 
-const ClientArea = () => {
-  const { data, isLoading } = useFetch('/areas');
-
-  const riskAreaList = data.map((information) => {
-    if (getDiffDays(information.lastDate) <= 14) {
-      return (
-        <Grid key={information._id} item xs={12} sm={6} md={4}>
-          <AreaCard information={information} />
-        </Grid>
-      );
+  const filterSignLanguageList = (district) => {
+    if (district === "US") {
+      return data
+        .filter((information) => information._id === "US")
+        .map((information) => (
+          <SignLanguagCard information={information.data} />
+        ));
+    } else if (district === "Hong Kong") {
+      return data
+        .filter((information) => information._id === "HongKong")
+        .map((information) => (
+          <SignLanguagCard information={information.data} />
+        ));
     }
-    return null;
-  });
+  };
 
   return (
     <div>
+      <Grid item xs={12}>
+        <Typography variant="h3" align="center" className={classes.title}>
+          Sign Language Dictionary
+        </Typography>
+        <Divider />
+      </Grid>
+      <Grid container spacing={3} flexGrow="1">
+        <Grid item xs={12} md={12}>
+          {filterController}
+        </Grid>
+      </Grid>
+      <Grid item xs={12}>
+        <Typography variant="h5" align="center" className={classes.title}>
+          {district}
+        </Typography>
+      </Grid>
       {isLoading ? (
-        <CircularProgress />
+        <Grid item xs={12}>
+          <CircularProgress />
+        </Grid>
       ) : (
         <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Typography variant="h6" paragraph>
-              <FontAwesomeIcon icon={faExclamationTriangle} /> High Risk Areas / Buildings (14days)
-            </Typography>
-            <Grid container spacing={3}>
-              {riskAreaList}
-              {noCasesMessage(data.length)}
-            </Grid>
-          </Grid>
+          {filterSignLanguageList(district)}
         </Grid>
       )}
     </div>
   );
 };
 
-export default ClientArea;
+export default ClientSignLanguages;

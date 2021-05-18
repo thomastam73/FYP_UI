@@ -1,5 +1,5 @@
-import React from 'react';
-import dayjs from 'dayjs';
+import React from "react";
+import dayjs from "dayjs";
 import {
   Grid,
   makeStyles,
@@ -9,79 +9,99 @@ import {
   Typography,
   Divider,
   Avatar,
-} from '@material-ui/core';
+} from "@material-ui/core";
+import AssignmentIcon from "@material-ui/icons/Assignment";
 
-dayjs.locale('zh-hk');
+dayjs.locale("zh-hk");
 
 const useStyles = makeStyles({
   root: {
-    width: '100%',
+    width: "100%",
   },
   bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
+    display: "inline-block",
+    margin: "0 2px",
+    transform: "scale(0.8)",
   },
   mb3: {
-    marginBottom: '10px',
+    marginBottom: "10px",
   },
   avatar: {
-    backgroundColor: 'white',
-    color: 'black',
+    backgroundColor: "white",
+    color: "black",
   },
 });
 
-function getHKDate(date) {
-  if (date === null) {
-    return '--';
-  }
-  return dayjs(date).format('YYYY-MM-DD');
+function getDistrictColour(district) {
+  if (district === "New Territories") {
+    return "green";
+  } else if (district === "Hong Kong Island") {
+    return "#E0FFFF";
+  } else if (district === "Kowloon") {
+    return "red";
+  } else return "#B71C1C";
 }
-
-function getStatusColor(date) {
-  const today = dayjs(new Date());
-  const endDate = dayjs(date);
-  if (endDate.isBefore(today)) {
-    return '#616161';
-  }
-  return '#B71C1C';
+function getTextColour(district) {
+  if (district === "New Territories") {
+    return "white";
+  } else if (district === "Hong Kong Island") {
+    return "black";
+  } else if (district === "Kowloon") {
+    return "white";
+  } else return "white";
 }
-const RuleCard = (props) => {
+const LocationCard = (props) => {
   const classes = useStyles();
-  const { information } = props;
-
-  return (
-    <Card className={classes.root}>
-      <CardHeader
-        titleTypographyProps={{ variant: 'h6' }}
-        style={{ backgroundColor: getStatusColor(information.endDate), color: 'white' }}
-        title={`${information.ruleName}`}
-        avatar={
-          <Avatar alt="" src={information.imageUrl} className={classes.avatar}>
-            --
-          </Avatar>
-        }
-      />
-      <Divider />
-      <CardContent>
-        <Grid container spacing={2} className={classes.mb3}>
-          <Grid item xs={6}>
-            <Typography variant="caption">Start Date</Typography>
-            <Typography variant="body2">{getHKDate(information.startDate)}</Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography variant="caption">End Date</Typography>
-            <Typography variant="body2">{getHKDate(information.endDate)}</Typography>
-          </Grid>
-
-          <Grid item xs={12}>
+  const { information, district } = props;
+  const list = information.map((information) => {
+    return (
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={12} md={12}>
+          <Card className={classes.root}>
+            <CardHeader
+              titleTypographyProps={{ variant: "h6" }}
+              style={{
+                backgroundColor: getDistrictColour(district),
+                color: getTextColour(district),
+              }}
+              title={information.buildingName}
+              avatar={
+                <Avatar alt="" className={classes.avatar}>
+                  <AssignmentIcon />
+                </Avatar>
+              }
+            />
             <Divider />
-            <Typography variant="caption">{information.description}</Typography>
-          </Grid>
+            <CardContent>
+              <Grid
+                container
+                spacing={2}
+                className={classes.mb3}
+                key={information.buildingName}
+              >
+                <Grid item xs={12}>
+                  <Divider />
+                  <Typography variant="body" component="h2">
+                    {information.address}
+                  </Typography>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: information.description,
+                    }}
+                  />
+                  <Typography variant="h6" align="right">
+                    {information.phone}
+                  </Typography>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Card>
         </Grid>
-      </CardContent>
-    </Card>
-  );
+      </Grid>
+    );
+  });
+
+  return list;
 };
 
-export default RuleCard;
+export default LocationCard;

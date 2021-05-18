@@ -1,103 +1,86 @@
-import React from 'react';
-import dayjs from 'dayjs';
-import {
-  Grid,
-  makeStyles,
-  CardHeader,
-  Card,
-  CardContent,
-  Typography,
-  Divider,
-  Chip,
-} from '@material-ui/core';
+import React from "react";
+import { Grid, makeStyles, Typography, Divider } from "@material-ui/core";
+import BTE from "./product-bte.png";
+import CIC from "./product-cic.png";
+import IIC from "./product-iic.png";
+import ITC from "./product-itc.png";
+import RIC from "./product-ric.png";
+import ITE from "./product-ite.png";
 
-dayjs.locale('zh-hk');
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
+    flexGrow: 1,
   },
   chip: {
-    color: 'white',
+    color: "white",
   },
   mb3: {
-    marginBottom: '10px',
+    marginBottom: "10px",
   },
-});
+  subTitle: {
+    fontWeight: "bold",
+    fontFamily: theme.typography.fontFamily[6],
+  },
+}));
 
-function getGender(gender) {
-  return gender === 'M' ? 'Male' : 'Female';
-}
-
-function getHKDate(date) {
-  return dayjs(date).format('YYYY-MM-DD');
-}
-
-function getConfirmed(state) {
-  return state === true ? '✅' : '--';
-}
-
-function getStatusColor(status) {
-  switch (status) {
-    case 'Hospitalised':
-      return '#FF6F00';
-    case 'Pending admission':
-      return '#F99F02';
-    case 'Deceased':
-      return '#616161';
-    case 'Discharged':
-      return '#368E3B';
+const getImg = (type) => {
+  switch (type) {
+    case "BTE":
+      return BTE;
+    case "CIC":
+      return CIC;
+    case "IIC":
+      return IIC;
+    case "ITC":
+      return ITC;
+    case "RIC":
+      return RIC;
+    case "ITE":
+      return ITE;
     default:
-      return '#ededed';
+      return BTE;
   }
-}
+};
 
-const CaseCard2 = (props) => {
+const ListeningAidCard = (props) => {
   const classes = useStyles();
-  const { information } = props;
+  const { information, type } = props;
+  const list = information.map((information) => (
+    <Grid container>
+      <Grid item xs={12} md={12} key={information._id}>
+        <Typography variant="h3" color="inherit" align="center">
+          {information.name}
+        </Typography>
+        <Divider />
+      </Grid>
+      <Grid container className={classes.root} spacing={2}>
+        <Grid item xs={12} sm={6}>
+          <Typography
+            className={classes.subTitle}
+            variant="h4"
+            color="inherit"
+            align="left"
+            paragraph
+          >
+            Desription:
+          </Typography>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: information.description,
+            }}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <img src={getImg(type)} alt={information.type} />
+        </Grid>
+      </Grid>
+    </Grid>
+  ));
+
   return (
-    <Card className={classes.root}>
-      <CardHeader
-        titleTypographyProps={{ variant: 'h6' }}
-        style={{ backgroundColor: getStatusColor(information.status) }}
-        title={`# ${information.caseNo}`}
-        avatar={<Chip label={information.status} style={{ backgroundColor: 'white' }} />}
-      />
-      <Divider />
-      <CardContent>
-        <Grid container spacing={2} className={classes.mb3}>
-          <Grid item xs={6}>
-            <Typography variant="h6">
-              Age {information.age} {getGender(information.gender)}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Chip label={information.classification} color="secondary" className={classes.chip} />
-          </Grid>
-        </Grid>
-
-        <Grid container spacing={2} className={classes.mb3}>
-          <Grid item xs={6}>
-            <Typography variant="caption">Date of onset</Typography>
-            <Typography variant="body2">{getHKDate(information.dateOfOnset)}</Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography variant="caption">Report Date</Typography>
-            <Typography variant="body2">{getHKDate(information.reportDate)}</Typography>
-          </Grid>
-        </Grid>
-
-        <Grid container spacing={2} className={classes.mb3}>
-          <Grid item xs={6}>
-            <Typography variant="caption">Resident</Typography>
-            <Typography variant="body2">{information.resident}</Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography variant="caption">Confirmed</Typography>
-            <Typography variant="body2">{getConfirmed(information.confirmed)}</Typography>
-          </Grid>
-        </Grid>
-      </CardContent>
-    </Card>
+    <Grid item xs={12} md={12}>
+      {list}
+    </Grid>
   );
 };
-export default CaseCard2;
+export default ListeningAidCard;

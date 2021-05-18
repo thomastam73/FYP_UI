@@ -1,117 +1,194 @@
-import React from 'react';
-import { Switch } from 'react-router-dom';
+import React from "react";
+import { Switch } from "react-router-dom";
 
 // route layout
-import { AuthRouteWithLayout, RouteWithLayout } from './components/RouteWithLayout';
+import {
+  AuthRouteWithLayout,
+  RouteWithLayout,
+  UserRouteWithLayout,
+} from "./components/RouteWithLayout";
 // layout
-import { Dashboard, Main } from './layouts';
+import { Dashboard, Main } from "./layouts";
 // components
 import {
   // client
+  ClientSignIn,
+  ClientRegister,
   ClientCulture,
-  ClientDicionary,
+  ClientSignLanguage,
   ClientDashboard,
   ClientLocation,
   ClientListeningAid,
+  DeatilCulture,
+  DeatilSignLanguage,
   // management
   SignIn,
-  Case,
-  AddCase,
-  EditCase,
-  HighRiskArea,
-  AddHighRiskArea,
-  EditHighRiskArea,
-  Rule,
-  AddRule,
-  EditRule,
-  Institution,
-  AddInstitution,
-  EditInstitution,
-} from './views';
+  Culture,
+  AddCulture,
+  EditCulture,
+  SignLanguage,
+  AddSignLanguage,
+  EditSignLanguage,
+  Location,
+  AddLocation,
+  EditLocation,
+  ListeningAid,
+  AddListeningAid,
+  EditListeningAid,
+} from "./views";
 
 const Routes = () => {
   return (
     <Switch>
       {/* -------------------------- Clients ---------------------------------- */}
       {/* SignIn */}
-      <RouteWithLayout component={SignIn} exact layout={Main} path="/signin" />
+      <RouteWithLayout
+        component={SignIn}
+        exact
+        layout={Main}
+        path="/management/signin"
+      />
+      <RouteWithLayout
+        component={ClientSignIn}
+        exact
+        layout={Main}
+        path="/signin"
+      />
+      <RouteWithLayout
+        component={ClientRegister}
+        exact
+        layout={Main}
+        path="/register"
+      />
       {/* Home Dashboard */}
-      <RouteWithLayout component={ClientDashboard} exact layout={Main} path="/" />
-      <RouteWithLayout component={ClientDashboard} exact layout={Main} path="/home" />
-      {/* Cases */}
-      <RouteWithLayout component={ClientCulture} exact layout={Main} path="/cultures" />
-      {/* Rules */}
-      <RouteWithLayout component={ClientDicionary} exact layout={Main} path="/dictionarys" />
+      <UserRouteWithLayout
+        component={ClientDashboard}
+        exact
+        layout={Main}
+        path="/"
+      />
+      <UserRouteWithLayout
+        component={ClientDashboard}
+        exact
+        layout={Main}
+        path="/home"
+      />
+      {/* Cultures */}
+      <UserRouteWithLayout
+        component={ClientCulture}
+        exact
+        layout={Main}
+        path="/cultures"
+      />
+      <UserRouteWithLayout
+        component={DeatilCulture}
+        exact
+        layout={Main}
+        path="/cultures/:id"
+      />
+      {/* Sign Languages */}
+      <UserRouteWithLayout
+        component={ClientSignLanguage}
+        exact
+        layout={Main}
+        path="/signLanguages"
+      />
+      <UserRouteWithLayout
+        component={DeatilSignLanguage}
+        exact
+        layout={Main}
+        path="/signLanguages/:id"
+      />
       {/* HighRiskArea */}
-      <RouteWithLayout component={ClientLocation} exact layout={Main} path="/locations" />
+      <UserRouteWithLayout
+        component={ClientLocation}
+        exact
+        layout={Main}
+        path="/locations"
+      />
       {/* Institutions */}
-      <RouteWithLayout component={ClientListeningAid} exact layout={Main} path="/listeningaids" />
+      <UserRouteWithLayout
+        component={ClientListeningAid}
+        exact
+        layout={Main}
+        path="/listeningAids"
+      />
       {/* -------------------------- Management---------------------------------- */}
-      {/* Manage Cases */}
-      <AuthRouteWithLayout component={Case} exact layout={Dashboard} path="/management/cases" />
+      {/* Manage Cultures */}
       <AuthRouteWithLayout
-        component={AddCase}
+        component={Culture}
         exact
         layout={Dashboard}
-        path="/management/cases/add"
+        path="/management/cultures"
       />
       <AuthRouteWithLayout
-        component={EditCase}
+        component={AddCulture}
         exact
         layout={Dashboard}
-        path="/management/cases/edit/:id"
+        path="/management/cultures/add"
+      />
+      <AuthRouteWithLayout
+        component={EditCulture}
+        exact
+        layout={Dashboard}
+        path="/management/cultures/edit/:id"
       />
       {/* Manage Rules */}
-      <AuthRouteWithLayout component={Rule} exact layout={Dashboard} path="/management/rules" />
       <AuthRouteWithLayout
-        component={AddRule}
+        component={SignLanguage}
         exact
         layout={Dashboard}
-        path="/management/rules/add"
+        path="/management/signlanguages"
       />
       <AuthRouteWithLayout
-        component={EditRule}
+        component={AddSignLanguage}
         exact
         layout={Dashboard}
-        path="/management/rules/edit/:id"
+        path="/management/signlanguages/add"
+      />
+      <AuthRouteWithLayout
+        component={EditSignLanguage}
+        exact
+        layout={Dashboard}
+        path="/management/signlanguages/edit/:id"
       />
       {/* Manage HighRiskArea */}
       <AuthRouteWithLayout
-        component={HighRiskArea}
+        component={Location}
         exact
         layout={Dashboard}
-        path="/management/areas"
+        path="/management/locations"
       />
       <AuthRouteWithLayout
-        component={AddHighRiskArea}
+        component={AddLocation}
         exact
         layout={Dashboard}
-        path="/management/areas/add"
+        path="/management/locations/add"
       />
       <AuthRouteWithLayout
-        component={EditHighRiskArea}
+        component={EditLocation}
         exact
         layout={Dashboard}
-        path="/management/areas/edit/:id"
+        path="/management/locations/edit/:id"
       />
       {/* Manage Institutions */}
       <AuthRouteWithLayout
-        component={Institution}
+        component={ListeningAid}
         exact
         layout={Dashboard}
-        path="/management/institutions"
+        path="/management/listeningaids"
       />
       <AuthRouteWithLayout
-        component={AddInstitution}
+        component={AddListeningAid}
         exact
         layout={Dashboard}
-        path="/management/institutions/add"
+        path="/management/listeningaids/add"
       />
       <AuthRouteWithLayout
-        component={EditInstitution}
+        component={EditListeningAid}
         exact
         layout={Dashboard}
-        path="/management/institutions/edit/:id"
+        path="/management/listeningaids/edit/:id"
       />
     </Switch>
   );

@@ -1,76 +1,18 @@
 {
-  "cases": [
+  "cultures": [
     {
-      "_id": "5fe9bcfe25bc017020795506",
-      "caseNo": 99,
-      "reportDate": "2020-01-01",
-      "dateOfOnset": "2020-10-13",
-      "gender": "F",
-      "age": 263,
-      "status": "Discharged",
-      "resident": "Non-HK resident",
-      "classification": "Local case",
-      "confirmed": "0"
+      "_id": { "$oid": "605dab827db9186859c2ea71" },
+      "name": "Never call them Deaf and Dumb",
+      "description": "asd",
+      "countrySource": "US",
+      "reportDate": { "$date": "2021-03-02T00:00:00.000Z" }
     },
     {
-      "_id": "5fe9bcfe25bc017020795546",
-      "caseNo": 5345,
-      "reportDate": "2020-12-29T08:27:42.492Z",
-      "dateOfOnset": "2020-12-29T08:27:42.492Z",
-      "gender": "M",
-      "age": 18,
-      "status": "Hospitalised",
-      "resident": "HK resident",
-      "classification": "Local case",
-      "confirmed": false
-    },
-    {
-      "_id": "5fe9bcfe25ba017020795506",
-      "caseNo": 554,
-      "reportDate": "2020-12-29T08:27:42.492Z",
-      "dateOfOnset": "2020-12-29T08:27:42.492Z",
-      "gender": "M",
-      "age": 18,
-      "status": "Hospitalised",
-      "resident": "HK resident",
-      "classification": "Local case",
-      "confirmed": false
-    },
-    {
-      "caseNo": 32523,
-      "reportDate": "2020-12-29T12:12:37.240Z",
-      "dateOfOnset": "2020-12-29T12:12:37.240Z",
-      "gender": "M",
-      "age": 18,
-      "status": "Hospitalised",
-      "resident": "HK resident",
-      "classification": "Local case",
-      "confirmed": false,
-      "_id": "nmqAWg_"
-    },
-    {
-      "caseNo": 55,
-      "reportDate": "2020-12-29T12:12:37.240Z",
-      "dateOfOnset": "2020-12-29T12:12:37.240Z",
-      "gender": "M",
-      "age": 18,
-      "status": "Hospitalised",
-      "resident": "HK resident",
-      "classification": "Local case",
-      "confirmed": false,
-      "_id": "GOMpo8-"
-    },
-    {
-      "caseNo": "",
-      "reportDate": "2020-12-29T13:10:15.874Z",
-      "dateOfOnset": "2020-12-29T13:10:15.874Z",
-      "gender": "M",
-      "age": 18,
-      "status": "Hospitalised",
-      "resident": "HK resident",
-      "classification": "Local case",
-      "confirmed": false,
-      "_id": "vfClYln"
+      "_id": { "$oid": "605c1bbbb977d1097d70a894" },
+      "name": "Never call them Deaf and Dumb",
+      "description": "",
+      "countrySource": "Hong Kong",
+      "reportDate": { "$date": "2021-02-28T16:00:00.000Z" }
     }
   ],
   "rules": [

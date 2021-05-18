@@ -1,34 +1,48 @@
-import React from 'react';
-import { CircularProgress, Grid, Typography } from '@material-ui/core';
+import React from "react";
+import {
+  CircularProgress,
+  Grid,
+  Typography,
+  makeStyles,
+  Divider,
+} from "@material-ui/core";
+
 // hook
-import { useFetch } from '../../../hooks';
+import { useFetch } from "../../../hooks";
 // components
-import CultrueCards from './CultureCards';
+import CultureList from "./CultureList";
 
-const ClientInstitution = () => {
-  const { data, isLoading } = useFetch('/cultureCards/group');
+const useStyles = makeStyles({
+  title: {
+    fontWeight: "bold",
+  },
+});
 
-  const caseCards = data.map((information) => (
-    <Grid key={information._id} item xs={12}>
-      <Typography variant="h6">{information._id}</Typography>
-      <CultrueCards region={information._id} information={information.data} />
-    </Grid>
-  ));
+const ClientCulture = () => {
+  const { data, isLoading } = useFetch("/cultures/group");
+  const clasess = useStyles();
 
   return (
     <div>
-      <Grid container spacing={3}>
-        {/* Booking Step */}
-      </Grid>
-      {/* Testing Institution */}
       <Grid item xs={12}>
         <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <Typography variant="h3" align="center" className={clasess.title}>
+              Deaf and Dumb People Culture
+            </Typography>
+            <Divider />
+          </Grid>
+
           {isLoading ? (
             <Grid item xs={12}>
               <CircularProgress />
             </Grid>
           ) : (
-            caseCards
+            [
+              <Grid item xs={12}>
+                <CultureList data={data} />
+              </Grid>,
+            ]
           )}
         </Grid>
       </Grid>
@@ -36,4 +50,4 @@ const ClientInstitution = () => {
   );
 };
 
-export default ClientInstitution;
+export default ClientCulture;

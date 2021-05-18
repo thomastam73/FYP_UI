@@ -1,8 +1,8 @@
 const global = {
-  siteName: 'Deaf and Dumb People',
-  copyRight: '© Tam Hei Man',
-  testApiUrl: 'http://localhost:5000',
-  apiUrl: 'https://hk-covid19-app.herokuapp.com',
+  siteName: "Deaf and Dumb People",
+  copyRight: "© Tam Hei Man",
+  testApiUrl: "http://localhost:5000",
+  apiUrl: "https://evening-woodland-06627.herokuapp.com",
   dev: false,
 };
 
