@@ -1,32 +1,12 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import * as tf from "@tensorflow/tfjs";
 import Webcam from "react-webcam";
 import { drawRect } from "./utilities";
+import { Grid } from "@material-ui/core";
 
 const ClientDashboard = () => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
-  const [isOnline, setIsOnline] = useState(null);
-
-  const runCoco = async () => {
-    const net = await tf.loadGraphModel(
-      "https://signlanguage-tensorflow.s3.jp-tok.cloud-object-storage.appdomain.cloud/model.json"
-    );
-
-    setInterval(() => {
-      detect(net);
-    }, 16.7);
-  };
-
-  const stopCoco = async () => {
-    const net = await tf.loadGraphModel(
-      "https://signlanguage-tensorflow.s3.jp-tok.cloud-object-storage.appdomain.cloud/model.json"
-    );
-
-    clearInterval(() => {
-      detect(net);
-    }, 16.7);
-  };
 
   const detect = async (net) => {
     if (
@@ -77,16 +57,21 @@ const ClientDashboard = () => {
   };
 
   useEffect(() => {
-    runCoco();
+    const runCoco = async () => {
+      const net = await tf.loadGraphModel(
+        "https://signlanguage-tensorflow.s3.jp-tok.cloud-object-storage.appdomain.cloud/model.json"
+      );
 
-    // 指定如何在這個 effect 之後執行清除：
-    return function cleanup() {
-      stopCoco();
+      setInterval(() => {
+        detect(net);
+      }, 16.7);
     };
+
+    return () => clearInterval(runCoco());
   }, []);
 
   return (
-    <div>
+    <Grid container>
       <Webcam
         ref={webcamRef}
         muted={true}
@@ -117,7 +102,7 @@ const ClientDashboard = () => {
           height: 480,
         }}
       />
-    </div>
+    </Grid>
   );
 };
 
