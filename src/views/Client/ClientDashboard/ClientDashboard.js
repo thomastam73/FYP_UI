@@ -66,6 +66,7 @@ const ClientDashboard = () => {
         detect(net);
       }, 16.7);
     };
+    runCoco();
 
     return () => clearInterval(runCoco());
   }, []);
