@@ -46,7 +46,7 @@ const LocationInfo = (props) => {
             <InputLabel htmlFor="district">District</InputLabel>
             <Select
               native
-              value={states.district}
+              defaultValue={states.district}
               onChange={handleOnChange("district")}
               inputProps={{
                 name: "district",

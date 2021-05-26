@@ -13,7 +13,7 @@ const columns = [
             pathname: `locations/edit/${row._id}`,
           }}
         >
-          {row.district}
+          {row.buildingName}
         </Link>
       </div>
     ),
